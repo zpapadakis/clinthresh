@@ -1,0 +1,8 @@
+# Release steps (about 30 minutes, one time)
+
+1. **GitHub.** Create a public repository named `clinthresh` under your account (github.com/zpapadakis). Upload the contents of this folder (or `git init`, `git add .`, `git commit`, `git push`). The CI workflow in `.github/workflows` will run R CMD check on Windows, macOS and Linux.
+2. **Zenodo DOI.** Log in to zenodo.org with GitHub, switch on the `clinthresh` repository, then on GitHub make a release (tag `v0.1.0`). Zenodo archives it and mints a DOI. Put that DOI in `README.md`, `inst/CITATION`, `CITATION.cff` and the manuscript (Data availability + toolkit paragraph).
+3. **Web app.** The free web app is the single file `docs/index.html`. On GitHub: Settings > Pages > Deploy from a branch > `main` / `docs`. It is then live at https://zpapadakis.github.io/clinthresh/ with no server or account needed. (The Shiny version, `run_app()`, can also be deployed to shinyapps.io if wanted.)
+4. **CRAN (optional, recommended).** `devtools::check(); devtools::submit_cran()`. CRAN listing makes the package easier to find and to cite. The package passes R CMD check --as-cran with no errors or warnings; the remaining notes are the expected "new submission" note and the placeholder app URL, which disappears once step 3 is done.
+5. **JOSS paper (second citable output).** After the review is accepted and the repository has been public for a while, submit `paper/paper.md` to the Journal of Open Source Software (joss.theoj.org). Check their current eligibility rules before submitting.
+6. **Keep it alive.** Add thresholds to `inst/extdata/mcid_reference.csv` (then run `data-raw/mcid_reference.R`), bump the version in DESCRIPTION and NEWS.md, and make a new GitHub release; Zenodo versions the DOI automatically.

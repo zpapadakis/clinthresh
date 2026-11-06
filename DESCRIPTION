@@ -1,0 +1,26 @@
+Package: clinthresh
+Title: Clinical Thresholds, Equivalence Tests and Replicability Tools for Sports Medicine Research
+Version: 0.1.0
+Authors@R: person("Zacharias", "Papadakis", email = "zach.papadakis@gmail.com",
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0001-8437-8067"))
+Description: Tools to read and design sports medicine and rehabilitation studies
+    against thresholds of clinical importance rather than against zero. Runs
+    equivalence tests (two one-sided tests) from published estimates and
+    confidence intervals, classifies intervals as clinically important,
+    trivial, equivalent or inconclusive, computes the smallest worthwhile
+    change, standard error of measurement and minimal detectable change,
+    the small-telescopes bound for replications, and sample sizes for
+    equivalence and non-inferiority trials. Ships a sourced reference table of
+    minimal important differences and an interactive web app.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Language: en-US
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: R (>= 4.1.0)
+Imports: stats, utils
+Suggests: ggplot2, shiny, bslib, testthat (>= 3.0.0), TOSTER
+Config/testthat/edition: 3
+URL: https://github.com/zpapadakis/clinthresh, https://zpapadakis.github.io/clinthresh/
+BugReports: https://github.com/zpapadakis/clinthresh/issues
+LazyData: true

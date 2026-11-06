@@ -1,0 +1,9 @@
+^data-raw$
+^README\.Rmd$
+^\.github$
+^paper$
+^CITATION\.cff$
+^\.zenodo\.json$
+^codemeta\.json$
+^RELEASE_STEPS\.md$
+^docs$
