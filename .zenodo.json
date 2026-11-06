@@ -26,14 +26,13 @@
   "related_identifiers": [
     {
       "identifier": "https://zpapadakis.github.io/clinthresh/",
-      "relation": "isSupplementTo",
-      "resource_type": "software"
+      "relation": "isDocumentedBy",
+      "scheme": "url"
     },
     {
       "identifier": "10.17605/OSF.IO/ZQM24",
       "relation": "isSupplementTo",
-      "scheme": "doi",
-      "resource_type": "dataset"
+      "scheme": "doi"
     }
   ]
 }
