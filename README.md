@@ -1,5 +1,7 @@
 # clinthresh
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24022248.svg)](https://doi.org/10.5281/zenodo.24022248) [![Web app](https://img.shields.io/badge/web%20app-open-1f6f8b)](https://zpapadakis.github.io/clinthresh/)
+
 **Clinical thresholds, equivalence tests and replicability tools for sports medicine research**
 
 A non-significant P value does not show that two treatments are equivalent, and a significant one does not show that an effect matters. `clinthresh` helps clinicians, authors and reviewers read a result against a threshold of clinical importance instead of against zero. It works from the numbers printed in an abstract, so you do not need the raw data.
@@ -83,7 +85,11 @@ citation("clinthresh")
 
 Papadakis Z. Statistically significant, clinically meaningful, or neither? clinical thresholds, equivalence testing, and replicability in sports medicine rehabilitation. *Curr Phys Med Rehabil Rep*. 2027.
 
-Papadakis Z. clinthresh: clinical thresholds, equivalence tests and replicability tools for sports medicine research. R package version 0.1.0. 2026. doi:ZENODO-DOI-TO-ADD
+Papadakis Z. clinthresh: clinical thresholds, equivalence tests and replicability tools for sports medicine research. R package version 0.1.0. 2026. https://doi.org/10.5281/zenodo.24022248
+
+## Worked examples
+
+The data, analysis plan, code and output for the worked examples in the review are on the Open Science Framework: https://doi.org/10.17605/OSF.IO/ZQM24
 
 ## How this software was made
 
