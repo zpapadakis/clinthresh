@@ -25,6 +25,10 @@ bibliography: paper.bib
 
 Trials in sports medicine are small, and many conclude that two treatments are "equally effective" because a test against zero was not significant [@altman1995; @murphy2025]. Equivalence and non-inferiority tests answer the question these authors are asking, but they are rarely used, partly because existing software expects raw data or group summaries and partly because the threshold of clinical importance is seldom stated. `clinthresh` fills that gap for clinicians, students, editors and reviewers who have only a published interval, and for investigators who need to plan a trial around the smallest effect that matters. The web application lets readers without R do the same calculations. The package complements TOSTER [@lakens2018], which is the better choice when raw data are available.
 
+# AI usage disclosure
+
+The author developed the R package, the web app and this paper with the help of an AI assistant (Claude, Anthropic). The author specified the methods, tested the software and is responsible for its content.
+
 # Acknowledgements
 
 The author thanks the sports and exercise science replication community, whose work motivated this package.
