@@ -2,6 +2,7 @@
 
 * States in the README, web app and paper draft that the software was developed with the help of an AI assistant.
 * Adds the Zenodo and OSF DOIs and the web app link.
+* Documents agreement with the TOSTER package for the published examples in the review.
 
 # clinthresh 0.1.0
 

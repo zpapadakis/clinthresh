@@ -93,7 +93,7 @@ The data, analysis plan, code and output for the worked examples in the review a
 
 ## How this software was made
 
-The author developed the R package and the web app with the help of an AI assistant (Claude, Anthropic). The author specified the methods, tested the functions against the worked examples in the review, and is responsible for the software. Please report errors through the issue tracker.
+The author developed the R package and the web app with the help of an AI assistant (Claude, Anthropic). The author specified the methods, tested the functions against the worked examples in the review and checked the equivalence tests against the TOSTER package (version 0.8.6), which gives the same P values to four significant figures, and is responsible for the software. Please report errors through the issue tracker.
 
 ## License
 
