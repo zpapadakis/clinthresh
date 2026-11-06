@@ -16,6 +16,7 @@ point-and-click version. Please cite with \code{citation("clinthresh")}.
 Useful links:
 \itemize{
   \item \url{https://github.com/zpapadakis/clinthresh}
+  \item \url{https://zpapadakis.github.io/clinthresh/}
   \item Report bugs at \url{https://github.com/zpapadakis/clinthresh/issues}
 }
 

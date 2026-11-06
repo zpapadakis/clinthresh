@@ -1,6 +1,6 @@
 Package: clinthresh
 Title: Clinical Thresholds, Equivalence Tests and Replicability Tools for Sports Medicine Research
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: person("Zacharias", "Papadakis", email = "zach.papadakis@gmail.com",
     role = c("aut", "cre"), comment = c(ORCID = "0000-0001-8437-8067"))
 Description: Tools to read and design sports medicine and rehabilitation studies

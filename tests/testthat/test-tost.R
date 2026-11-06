@@ -44,3 +44,13 @@ test_that("report_sentence and print produce text", {
   expect_match(report_sentence(x, "points"), "lies inside")
   expect_output(print(x), "Equivalence test")
 })
+
+test_that("summary-statistic TOST matches TOSTER 0.8.6", {
+  w <- tost_means(10, 5, 30, 8, 7, 25, sesoi = 5)
+  expect_equal(w$df, 42.40304, tolerance = 1e-6)
+  expect_equal(w$p_upper, 0.03989339, tolerance = 1e-6)
+  p <- tost_means(0.23, 3.26, 40, sesoi = 1.57, paired = TRUE)
+  expect_equal(p$p_tost, 0.0065547, tolerance = 1e-4)
+  r <- tost_prop(13, 274, 17, 266, sesoi = 5)
+  expect_equal(r$p_tost, 0.04471023, tolerance = 1e-6)
+})

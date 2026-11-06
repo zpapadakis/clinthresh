@@ -1,3 +1,9 @@
+# clinthresh 0.1.2
+
+* New `tost_means()` (two groups, Welch or pooled; or paired from the mean and SD of the differences) and `tost_prop()` (risk difference in percentage points, Wald).
+* Web app: the Interpret tab now accepts a difference and CI, group means and SDs, a paired mean difference, event counts, or pasted raw data, and reports the one-sided P values and the method used.
+* Checked against TOSTER 0.8.6 (`tsum_TOST()`, `t_TOST()`, `twoprop_test()`).
+
 # clinthresh 0.1.1
 
 * States in the README, web app and paper draft that the software was developed with the help of an AI assistant.

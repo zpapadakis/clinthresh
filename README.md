@@ -10,7 +10,7 @@ It accompanies the invited review *Statistically Significant, Clinically Meaning
 
 ## No R? Use the web app
 
-**[Open the free web app](https://zpapadakis.github.io/clinthresh/)** to interpret a published result, test non-inferiority, plan a trial, compute SWC and MDC, or browse the threshold table. It runs entirely in your browser; nothing you type is sent anywhere. (`run_app()` opens the same tools as a Shiny app from R.)
+**[Open the free web app](https://zpapadakis.github.io/clinthresh/)** to interpret a published result (from the reported CI, group means and SDs, a paired difference, event counts, or your own pasted data), test non-inferiority, plan a trial, compute SWC and MDC, or browse the threshold table. It runs entirely in your browser; nothing you type is sent anywhere. (`run_app()` opens the same tools as a Shiny app from R.)
 
 ## Install
 
@@ -25,6 +25,8 @@ remotes::install_github("zpapadakis/clinthresh")
 |---|---|
 | Does this published result show a clinically important effect, a trivial one, equivalence, or nothing conclusive? | `tost_ci()`, `classify_ci()` |
 | I have an estimate and a standard error | `tost_se()` |
+| I have group means and SDs (or a paired difference) | `tost_means()` |
+| I have event counts in two groups | `tost_prop()` |
 | Write the interpretation for me | `report_sentence()` |
 | Plot several results against their bounds | `plot_equivalence()` |
 | How many participants does an equivalence or non-inferiority trial need? | `n_equivalence()`, `n_noninferiority()`, `power_equivalence()` |
