@@ -1,3 +1,8 @@
+# clinthresh 0.1.1
+
+* States in the README, web app and paper draft that the software was developed with the help of an AI assistant.
+* Adds the Zenodo and OSF DOIs and the web app link.
+
 # clinthresh 0.1.0
 
 * First release, accompanying the invited review in Current Physical Medicine and Rehabilitation Reports.

@@ -12,8 +12,8 @@ bibentry(
   title = "clinthresh: Clinical Thresholds, Equivalence Tests and Replicability Tools for Sports Medicine Research",
   author = person("Zacharias", "Papadakis"),
   year = "2026",
-  note = "R package version 0.1.0",
+  note = "R package version 0.1.1",
   doi = "10.5281/zenodo.24022248",
   url = "https://github.com/zpapadakis/clinthresh",
-  textVersion = "Papadakis Z. clinthresh: clinical thresholds, equivalence tests and replicability tools for sports medicine research. R package version 0.1.0. 2026. https://doi.org/10.5281/zenodo.24022248"
+  textVersion = "Papadakis Z. clinthresh: clinical thresholds, equivalence tests and replicability tools for sports medicine research. R package version 0.1.1. 2026. https://doi.org/10.5281/zenodo.24022248"
 )
