@@ -1,3 +1,7 @@
+# clinthresh 0.1.5
+
+* Web app: the kidney disease worked example now uses a bound of half the typical error between the two baseline days (0.30 ln units), as in the revised review; the result stays inconclusive (equivalent only for bounds of at least 0.47).
+
 # clinthresh 0.1.4
 
 * Web app: worked examples now match the review (KANON, knee replacement, insertional Achilles tendinopathy, hyaluronic acid, UKSTAR, CKD); a clinically important result now reports a one-sided minimum-effect test and the largest threshold it clears.
