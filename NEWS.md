@@ -3,6 +3,7 @@
 * **One error rate.** `tost_ci()`, `tost_se()`, `tost_means()`, `tost_prop()`, `power_equivalence()` and `n_equivalence()` now default to alpha = 0.025 per one-sided test, matching `n_noninferiority()` and the CONSORT convention for equivalence and non-inferiority trials. Every judgment (zero, importance, equivalence, non-inferiority) then uses the 95% interval a paper prints, a result equivalent within a bound is always non-inferior at a margin of the same size, and the five patterns cannot overlap. Use `alpha = 0.05` for bioequivalence or TOSTER defaults.
 * `tost_ci()`: when the equivalence level equals the reported level, the reported limits are used as the equivalence interval, so the conclusion can be read straight off the printed interval even when the reported estimate is not its midpoint.
 * Web app: each published threshold is labeled within-patient or between-group, and a within-patient threshold applied to a between-group difference triggers a caution.
+* KANON example (web app preset and tests) entered as early minus optional (-0.2; -6.8 to 6.5), matching the review (vs22).
 * Web app: alpha defaults to 0.025 per side; worked examples and notes match Table 2 of the review (vs21). Shiny app updated to match.
 
 # clinthresh 0.1.7

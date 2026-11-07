@@ -1,4 +1,4 @@
-# Table 2 of Papadakis (Curr Phys Med Rehabil Rep, under review), vs21.
+# Table 2 of Papadakis (Curr Phys Med Rehabil Rep, under review), vs22.
 # One rule for every row: reported estimate and 95% limits, normal approximation, and one error rate:
 # every judgment uses the 95% CI (alpha = 0.025 per one-sided test, the package default).
 z95 <- stats::qnorm(0.975)
@@ -22,8 +22,8 @@ test_that("Row 3, Bensa et al. 2026 pain: real but trivial at +/-1, holds for bo
   expect_lt(r$p_tost, 0.001)
 })
 
-test_that("Row 4, KANON: practically equivalent at +/-8, holds for bounds >= 6.8", {
-  r <- tost_ci(-6.5, 6.8, sesoi = 8, estimate = 0.2)
+test_that("Row 4, KANON (early minus optional): practically equivalent at +/-8, holds for bounds >= 6.8", {
+  r <- tost_ci(-6.8, 6.5, sesoi = 8, estimate = -0.2)
   expect_equal(r$pattern, "Practically equivalent")
   expect_equal(max(abs(r$ci_equivalence)), 6.8)
   expect_equal(r$p_tost, 0.010755, tolerance = 1e-3)
