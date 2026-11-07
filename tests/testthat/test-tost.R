@@ -54,3 +54,9 @@ test_that("summary-statistic TOST matches TOSTER 0.8.6", {
   r <- tost_prop(13, 274, 17, 266, sesoi = 5)
   expect_equal(r$p_tost, 0.04471023, tolerance = 1e-6)
 })
+
+test_that("minimum-effect test for a clinically important result (Skou et al. 2015)", {
+  r <- tost_ci(10.0, 21.5, sesoi = 8)
+  expect_equal(r$p_min_effect_above, 0.004125, tolerance = 1e-3)
+  expect_match(r$pattern, "Clinically important")
+})

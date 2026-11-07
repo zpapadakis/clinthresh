@@ -73,6 +73,8 @@ tost_core <- function(est, se, bounds, alpha, df, ci_reported, level) {
     ci_equivalence = ci_eq, ci_equivalence_level = 1 - 2 * alpha,
     bounds = bounds, p_nhst = p_nhst,
     p_lower = p_lower, p_upper = p_upper, p_tost = max(p_lower, p_upper),
+    p_min_effect_above = pfun((est - bounds[2]) / se),  # H0: effect <= upper bound
+    p_min_effect_below = pfun((bounds[1] - est) / se),  # H0: effect >= lower bound
     equivalent = max(p_lower, p_upper) < alpha,
     pattern = classify_ci(ci_reported[1], ci_reported[2], bounds, ci_eq = ci_eq)
   )

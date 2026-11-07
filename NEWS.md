@@ -1,3 +1,8 @@
+# clinthresh 0.1.4
+
+* Web app: worked examples now match the review (KANON, knee replacement, insertional Achilles tendinopathy, hyaluronic acid, UKSTAR, CKD); a clinically important result now reports a one-sided minimum-effect test and the largest threshold it clears.
+* `tost_ci()` and `tost_se()` also return one-sided minimum-effect P values (`p_min_effect_above`, `p_min_effect_below`).
+
 # clinthresh 0.1.3
 
 * Web app: one-click worked examples from the review (KANON, de Vos et al., RESTORE, Rutjes et al., UKSTAR ATRS and re-rupture, caffeine crossover, CKD heart rate variability).
