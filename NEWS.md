@@ -1,3 +1,8 @@
+# clinthresh 0.1.6
+
+* Web app: event-count comparisons now use Newcombe hybrid score intervals (P values still from the Wald z statistic), matching the re-rupture analysis in the review.
+* Web app: the kidney disease example uses an illustrative bound of a 50% difference in RMSSD (ln 1.5) and notes that the result is inconclusive for any bound below 0.47 ln units.
+
 # clinthresh 0.1.5
 
 * Web app: the kidney disease worked example now uses a bound of half the typical error between the two baseline days (0.30 ln units), as in the revised review; the result stays inconclusive (equivalent only for bounds of at least 0.47).
