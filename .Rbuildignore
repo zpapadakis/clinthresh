@@ -7,3 +7,4 @@
 ^codemeta\.json$
 ^RELEASE_STEPS\.md$
 ^docs$
+^cran-comments\.md$
