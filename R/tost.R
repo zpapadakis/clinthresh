@@ -13,10 +13,17 @@
 #'   of the interval is used, which keeps the estimate and the standard error
 #'   internally consistent when both were rounded.
 #' @param level Confidence level of the reported interval (default 0.95).
-#' @param alpha Alpha for each one-sided test (default 0.05, which corresponds
-#'   to a 90% confidence interval).
+#' @param alpha Alpha for each one-sided test. The default, 0.025, corresponds
+#'   to a 95% confidence interval, the convention for equivalence and
+#'   non-inferiority trials (CONSORT), so every judgment uses the interval a
+#'   paper prints. Use 0.05 (a 90% interval) to match bioequivalence or TOSTER
+#'   defaults.
 #' @param df Degrees of freedom. `Inf` (default) uses the normal distribution;
 #'   supply the trial's degrees of freedom for a t-based approximation.
+#' When the equivalence interval has the same level as the reported interval
+#' (for example `alpha = 0.025` with a 95% CI), the reported limits are used as
+#' the equivalence interval, so the conclusion can be read straight off the
+#' printed interval even when the reported estimate is not its midpoint.
 #' @return An object of class `clinthresh_tost`: a list with the estimate,
 #'   standard error, the (1 - 2 * alpha) confidence interval, the
 #'   null-hypothesis P value, the two one-sided P values, the TOST P value,
@@ -29,7 +36,7 @@
 #' tost_ci(lower = -6.5, upper = 6.8, sesoi = 8)
 #' @export
 tost_ci <- function(lower, upper, sesoi, estimate = NULL, level = 0.95,
-                    alpha = 0.05, df = Inf) {
+                    alpha = 0.025, df = Inf) {
   check_num(lower, "lower"); check_num(upper, "upper")
   if (upper <= lower) stop("`upper` must be greater than `lower`.", call. = FALSE)
   bounds <- make_bounds(sesoi)
@@ -39,7 +46,8 @@ tost_ci <- function(lower, upper, sesoi, estimate = NULL, level = 0.95,
   se <- (upper - lower) / (2 * crit)
   mid <- (lower + upper) / 2
   est <- if (is.null(estimate)) mid else estimate
-  tost_core(est, se, bounds, alpha, df, ci_reported = c(lower, upper), level = level)
+  tost_core(est, se, bounds, alpha, df, ci_reported = c(lower, upper), level = level,
+            ci_eq = if (abs((1 - 2 * alpha) - level) < 1e-9) c(lower, upper) else NULL)
 }
 
 #' Equivalence test (TOST) from an estimate and its standard error
@@ -51,7 +59,7 @@ tost_ci <- function(lower, upper, sesoi, estimate = NULL, level = 0.95,
 #' @examples
 #' tost_se(estimate = 0.23, se = 0.52, sesoi = 1.57, df = 39)
 #' @export
-tost_se <- function(estimate, se, sesoi, alpha = 0.05, df = Inf) {
+tost_se <- function(estimate, se, sesoi, alpha = 0.025, df = Inf) {
   check_num(estimate, "estimate"); check_num(se, "se")
   if (se <= 0) stop("`se` must be positive.", call. = FALSE)
   bounds <- make_bounds(sesoi)
@@ -60,13 +68,13 @@ tost_se <- function(estimate, se, sesoi, alpha = 0.05, df = Inf) {
             ci_reported = estimate + c(-1, 1) * crit * se, level = 0.95)
 }
 
-tost_core <- function(est, se, bounds, alpha, df, ci_reported, level) {
+tost_core <- function(est, se, bounds, alpha, df, ci_reported, level, ci_eq = NULL) {
   pfun <- function(q) if (is.finite(df)) stats::pt(q, df, lower.tail = FALSE) else stats::pnorm(q, lower.tail = FALSE)
   qfun <- function(p) if (is.finite(df)) stats::qt(p, df) else stats::qnorm(p)
   p_lower <- pfun((est - bounds[1]) / se)        # H0: effect <= lower bound
   p_upper <- pfun((bounds[2] - est) / se)        # H0: effect >= upper bound
   p_nhst <- 2 * pfun(abs(est / se))
-  ci_eq <- est + c(-1, 1) * qfun(1 - alpha) * se
+  if (is.null(ci_eq)) ci_eq <- est + c(-1, 1) * qfun(1 - alpha) * se
   out <- list(
     estimate = est, se = se, df = df,
     ci_reported = ci_reported, level = level,
@@ -75,7 +83,7 @@ tost_core <- function(est, se, bounds, alpha, df, ci_reported, level) {
     p_lower = p_lower, p_upper = p_upper, p_tost = max(p_lower, p_upper),
     p_min_effect_above = pfun((est - bounds[2]) / se),  # H0: effect <= upper bound
     p_min_effect_below = pfun((bounds[1] - est) / se),  # H0: effect >= lower bound
-    equivalent = max(p_lower, p_upper) < alpha,
+    equivalent = ci_eq[1] > bounds[1] && ci_eq[2] < bounds[2],
     pattern = classify_ci(ci_reported[1], ci_reported[2], bounds, ci_eq = ci_eq)
   )
   class(out) <- "clinthresh_tost"

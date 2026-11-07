@@ -5,8 +5,9 @@
 #' trivial, practically equivalent, or inconclusive.
 #'
 #' Zero is judged with the interval supplied (usually the 95% CI). The
-#' equivalence bounds are judged with `ci_eq` when supplied (usually the 90%
-#' CI, which matches a TOST at alpha = 0.05); otherwise with the same interval.
+#' equivalence bounds are judged with `ci_eq` when supplied; otherwise with the
+#' same interval, which is the package default (one error rate, alpha = 0.025
+#' per one-sided test). With one interval the five patterns cannot overlap.
 #'
 #' @param lower,upper Limits of the confidence interval.
 #' @param sesoi One positive number (symmetric bounds) or two increasing

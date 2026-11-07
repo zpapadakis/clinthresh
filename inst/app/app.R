@@ -64,7 +64,7 @@ ui <- fluidPage(
           numericInput("p_sd", "Standard deviation (of the change scores, if crossover)", 20, min = 0),
           numericInput("p_true", "Expected true difference (usually 0)", 0),
           sliderInput("p_power", "Power", 0.7, 0.95, 0.8, 0.05),
-          numericInput("p_alpha", "Alpha (0.05 is standard)", 0.05, min = 0.001, max = 0.25)
+          numericInput("p_alpha", "Alpha per one-sided test (0.025 matches a 95% CI)", 0.025, min = 0.001, max = 0.25)
         ),
         mainPanel(div(class = "verdict", textOutput("n_out")), textOutput("n_note"),
                   plotOutput("powercurve", height = "300px")))),
@@ -92,7 +92,7 @@ ui <- fluidPage(
         tags$li(tags$b("Real but trivial:"), " the interval excludes zero but stays inside the threshold."),
         tags$li(tags$b("Practically equivalent:"), " the interval includes zero and stays inside the threshold."),
         tags$li(tags$b("Inconclusive:"), " the interval includes zero and reaches past the threshold. The study cannot tell.")),
-      p("Technical note: zero is judged with the reported 95% CI; the threshold is judged with the 90% CI, which matches an equivalence test (TOST) at alpha = 0.05."),
+      p("Technical note: every judgment uses the reported 95% CI (alpha = 0.025 per one-sided test, the CONSORT convention for equivalence and non-inferiority trials)."),
       p("Results from summary statistics are approximations. When raw data are available, analyze them directly (for example with the TOSTER package)."))
   ),
   div(class = "cite", cite_text)
@@ -123,7 +123,7 @@ server <- function(input, output, session) {
     r <- res()
     data.frame(Estimate = r$estimate, `Reported CI` = sprintf("%.2f to %.2f", r$ci_reported[1], r$ci_reported[2]),
                `P (vs 0)` = fp(r$p_nhst), Bounds = sprintf("%.2f to %.2f", r$bounds[1], r$bounds[2]),
-               `90% CI` = sprintf("%.2f to %.2f", r$ci_equivalence[1], r$ci_equivalence[2]),
+               `Equivalence CI` = sprintf("%.2f to %.2f", r$ci_equivalence[1], r$ci_equivalence[2]),
                `TOST P` = fp(r$p_tost), check.names = FALSE)
   }, digits = 2)
   output$sentence <- renderText(report_sentence(res(), units = input$units))

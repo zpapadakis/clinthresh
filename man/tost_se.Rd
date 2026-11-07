@@ -4,7 +4,7 @@
 \alias{tost_se}
 \title{Equivalence test (TOST) from an estimate and its standard error}
 \usage{
-tost_se(estimate, se, sesoi, alpha = 0.05, df = Inf)
+tost_se(estimate, se, sesoi, alpha = 0.025, df = Inf)
 }
 \arguments{
 \item{estimate}{Point estimate (for example a between-group difference).}
@@ -15,11 +15,18 @@ tost_se(estimate, se, sesoi, alpha = 0.05, df = Inf)
 gives symmetric bounds (-sesoi, +sesoi); a vector of two numbers gives
 asymmetric bounds (lower bound, upper bound).}
 
-\item{alpha}{Alpha for each one-sided test (default 0.05, which corresponds
-to a 90\% confidence interval).}
+\item{alpha}{Alpha for each one-sided test. The default, 0.025, corresponds
+to a 95\% confidence interval, the convention for equivalence and
+non-inferiority trials (CONSORT), so every judgment uses the interval a
+paper prints. Use 0.05 (a 90\% interval) to match bioequivalence or TOSTER
+defaults.}
 
 \item{df}{Degrees of freedom. \code{Inf} (default) uses the normal distribution;
-supply the trial's degrees of freedom for a t-based approximation.}
+supply the trial's degrees of freedom for a t-based approximation.
+When the equivalence interval has the same level as the reported interval
+(for example \code{alpha = 0.025} with a 95\% CI), the reported limits are used as
+the equivalence interval, so the conclusion can be read straight off the
+printed interval even when the reported estimate is not its midpoint.}
 }
 \value{
 An object of class \code{clinthresh_tost} (see \code{\link[=tost_ci]{tost_ci()}}).

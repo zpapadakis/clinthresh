@@ -9,7 +9,7 @@ power_equivalence(
   sesoi,
   sd,
   true_diff = 0,
-  alpha = 0.05,
+  alpha = 0.025,
   design = c("two.sample", "paired")
 )
 }

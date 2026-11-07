@@ -10,7 +10,7 @@ tost_ci(
   sesoi,
   estimate = NULL,
   level = 0.95,
-  alpha = 0.05,
+  alpha = 0.025,
   df = Inf
 )
 }
@@ -27,11 +27,18 @@ internally consistent when both were rounded.}
 
 \item{level}{Confidence level of the reported interval (default 0.95).}
 
-\item{alpha}{Alpha for each one-sided test (default 0.05, which corresponds
-to a 90\% confidence interval).}
+\item{alpha}{Alpha for each one-sided test. The default, 0.025, corresponds
+to a 95\% confidence interval, the convention for equivalence and
+non-inferiority trials (CONSORT), so every judgment uses the interval a
+paper prints. Use 0.05 (a 90\% interval) to match bioequivalence or TOSTER
+defaults.}
 
 \item{df}{Degrees of freedom. \code{Inf} (default) uses the normal distribution;
-supply the trial's degrees of freedom for a t-based approximation.}
+supply the trial's degrees of freedom for a t-based approximation.
+When the equivalence interval has the same level as the reported interval
+(for example \code{alpha = 0.025} with a 95\% CI), the reported limits are used as
+the equivalence interval, so the conclusion can be read straight off the
+printed interval even when the reported estimate is not its midpoint.}
 }
 \value{
 An object of class \code{clinthresh_tost}: a list with the estimate,

@@ -42,26 +42,26 @@ The KANON trial reported a 2-year KOOS4 difference of 0.2 points (95% CI -6.5 to
 
 ```r
 library(clinthresh)
-tost_ci(lower = -6.5, upper = 6.8, sesoi = 8)
+tost_ci(lower = -6.5, upper = 6.8, sesoi = 8, estimate = 0.2)
 #> Equivalence test (TOST)
-#>   Estimate: 0.150 (95% CI -6.50 to 6.80), P = 0.96
+#>   Estimate: 0.200 (95% CI -6.50 to 6.80), P = 0.95
 #>   Bounds: -8.00 to 8.00
-#>   90% CI: -5.43 to 5.73; TOST P = 0.01
+#>   95% CI: -6.50 to 6.80; TOST P = 0.01
 #>   Pattern: Practically equivalent
 ```
 
-Against an 8-point threshold, the trial supports equivalence: early reconstruction gave no clinically important advantage in KOOS4.
+Against an 8-point threshold, the trial supports equivalence: early reconstruction gave no clinically important advantage in KOOS4. The conclusion holds for any bound of 6.8 points or more, the larger absolute limit of the printed 95% CI.
 
 ## Example: planning a trial
 
 ```r
-n_equivalence(sesoi = 8, sd = 20)          # 108 per group for 80% power
+n_equivalence(sesoi = 8, sd = 20)          # 133 per group for 80% power (alpha = 0.025 per side)
 small_telescope(25, type = "paired", sd = 3.26)   # bound for replicating a 25-athlete crossover: 1.04 cm
 ```
 
 ## The five patterns
 
-`classify_ci()` judges zero with the reported (usually 95%) interval and the bounds with the 90% interval, which matches a TOST at alpha = 0.05:
+Since version 0.1.8 every test defaults to alpha = 0.025 per one-sided test, so zero, clinical importance, equivalence and non-inferiority are all judged with the 95% interval a paper prints (the CONSORT convention for equivalence and non-inferiority trials). With one error rate, a result that is equivalent within a bound is always non-inferior at a margin of the same size, and the five patterns cannot overlap. Set `alpha = 0.05` to reproduce bioequivalence or TOSTER defaults (90% interval). `classify_ci()` places an interval in one of five patterns:
 
 1. **Clinically important**: the whole interval lies beyond a bound.
 2. **Real, importance unclear**: excludes zero but crosses a bound.

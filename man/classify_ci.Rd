@@ -26,8 +26,9 @@ trivial, practically equivalent, or inconclusive.
 }
 \details{
 Zero is judged with the interval supplied (usually the 95\% CI). The
-equivalence bounds are judged with \code{ci_eq} when supplied (usually the 90\%
-CI, which matches a TOST at alpha = 0.05); otherwise with the same interval.
+equivalence bounds are judged with \code{ci_eq} when supplied; otherwise with the
+same interval, which is the package default (one error rate, alpha = 0.025
+per one-sided test). With one interval the five patterns cannot overlap.
 }
 \examples{
 classify_ci(-0.9, 0.2, sesoi = 1.8)   # RESTORE: practically equivalent

@@ -16,7 +16,7 @@
 #' tost_means(0.23, 3.26, 40, sesoi = 1.57, paired = TRUE)
 #' @export
 tost_means <- function(m1, sd1, n1, m2 = NULL, sd2 = NULL, n2 = NULL, sesoi,
-                       alpha = 0.05, welch = TRUE, paired = FALSE) {
+                       alpha = 0.025, welch = TRUE, paired = FALSE) {
   if (paired) {
     return(tost_se(m1, sd1 / sqrt(n1), sesoi, alpha = alpha, df = n1 - 1))
   }
@@ -46,7 +46,7 @@ tost_means <- function(m1, sd1, n1, m2 = NULL, sd2 = NULL, n2 = NULL, sesoi,
 #' @examples
 #' tost_prop(13, 274, 17, 266, sesoi = 5)
 #' @export
-tost_prop <- function(x1, n1, x2, n2, sesoi, alpha = 0.05) {
+tost_prop <- function(x1, n1, x2, n2, sesoi, alpha = 0.025) {
   p1 <- x1 / n1; p2 <- x2 / n2
   se <- 100 * sqrt(p1 * (1 - p1) / n1 + p2 * (1 - p2) / n2)
   if (se == 0) stop("Standard error is zero; the Wald method cannot be used.", call. = FALSE)

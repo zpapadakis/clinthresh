@@ -12,16 +12,16 @@ test_that("small_telescope matches the caffeine example", {
 })
 
 test_that("equivalence sample size gives adequate power", {
-  n <- n_equivalence(sesoi = 0.5, sd = 1)
-  expect_gte(power_equivalence(n, 0.5, 1), 0.80)
-  expect_lt(power_equivalence(n - 1, 0.5, 1), 0.80)
-  expect_lt(n_equivalence(0.5, 1, design = "paired"), n)
-  expect_error(n_equivalence(0.5, 1, true_diff = 0.6))
+  n <- n_equivalence(sesoi = 0.5, sd = 1, alpha = 0.05)
+  expect_gte(power_equivalence(n, 0.5, 1, alpha = 0.05), 0.80)
+  expect_lt(power_equivalence(n - 1, 0.5, 1, alpha = 0.05), 0.80)
+  expect_lt(n_equivalence(0.5, 1, design = "paired", alpha = 0.05), n)
+  expect_error(n_equivalence(0.5, 1, true_diff = 0.6, alpha = 0.05))
 })
 
 test_that("power agrees with TOSTER when available", {
   skip_if_not_installed("TOSTER")
-  p_ours <- power_equivalence(70, sesoi = 0.5, sd = 1)
+  p_ours <- power_equivalence(70, sesoi = 0.5, sd = 1, alpha = 0.05)
   p_toster <- TOSTER::power_t_TOST(n = 70, delta = 0, sd = 1, eqb = 0.5, alpha = 0.05, type = "two.sample")$power
   expect_equal(p_ours, p_toster, tolerance = 0.02)
 })

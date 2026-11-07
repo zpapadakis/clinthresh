@@ -4,7 +4,7 @@
 \alias{tost_prop}
 \title{Equivalence test (TOST) for a risk difference}
 \usage{
-tost_prop(x1, n1, x2, n2, sesoi, alpha = 0.05)
+tost_prop(x1, n1, x2, n2, sesoi, alpha = 0.025)
 }
 \arguments{
 \item{x1, n1}{Events and sample size in group 1.}
@@ -14,8 +14,11 @@ tost_prop(x1, n1, x2, n2, sesoi, alpha = 0.05)
 \item{sesoi}{Threshold in percentage points (a single positive value for
 symmetric bounds, or two values).}
 
-\item{alpha}{Alpha for each one-sided test (default 0.05, which corresponds
-to a 90\% confidence interval).}
+\item{alpha}{Alpha for each one-sided test. The default, 0.025, corresponds
+to a 95\% confidence interval, the convention for equivalence and
+non-inferiority trials (CONSORT), so every judgment uses the interval a
+paper prints. Use 0.05 (a 90\% interval) to match bioequivalence or TOSTER
+defaults.}
 }
 \value{
 An object of class \code{clinthresh_tost} (see \code{\link[=tost_ci]{tost_ci()}}).

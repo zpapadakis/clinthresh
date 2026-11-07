@@ -12,7 +12,7 @@ tost_means(
   sd2 = NULL,
   n2 = NULL,
   sesoi,
-  alpha = 0.05,
+  alpha = 0.025,
   welch = TRUE,
   paired = FALSE
 )
@@ -27,8 +27,11 @@ the mean and SD of the differences and the number of pairs).}
 gives symmetric bounds (-sesoi, +sesoi); a vector of two numbers gives
 asymmetric bounds (lower bound, upper bound).}
 
-\item{alpha}{Alpha for each one-sided test (default 0.05, which corresponds
-to a 90\% confidence interval).}
+\item{alpha}{Alpha for each one-sided test. The default, 0.025, corresponds
+to a 95\% confidence interval, the convention for equivalence and
+non-inferiority trials (CONSORT), so every judgment uses the interval a
+paper prints. Use 0.05 (a 90\% interval) to match bioequivalence or TOSTER
+defaults.}
 
 \item{welch}{Use the Welch (unequal variance) standard error and df.}
 

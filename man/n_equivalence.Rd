@@ -8,7 +8,7 @@ n_equivalence(
   sesoi,
   sd,
   true_diff = 0,
-  alpha = 0.05,
+  alpha = 0.025,
   power = 0.8,
   design = c("two.sample", "paired")
 )

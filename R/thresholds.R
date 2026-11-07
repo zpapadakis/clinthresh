@@ -100,7 +100,7 @@ small_telescope <- function(n, type = c("two.sample", "paired", "one.sample"), a
 #' @param design `"two.sample"` or `"paired"`.
 #' @return Power (0 to 1).
 #' @export
-power_equivalence <- function(n, sesoi, sd, true_diff = 0, alpha = 0.05,
+power_equivalence <- function(n, sesoi, sd, true_diff = 0, alpha = 0.025,
                               design = c("two.sample", "paired")) {
   design <- match.arg(design)
   se <- if (design == "two.sample") sd * sqrt(2 / n) else sd / sqrt(n)
@@ -124,7 +124,7 @@ power_equivalence <- function(n, sesoi, sd, true_diff = 0, alpha = 0.05,
 #' n_equivalence(sesoi = 8, sd = 20)                 # KOOS-type outcome
 #' n_equivalence(sesoi = 1.57, sd = 3.3, design = "paired")
 #' @export
-n_equivalence <- function(sesoi, sd, true_diff = 0, alpha = 0.05, power = 0.80,
+n_equivalence <- function(sesoi, sd, true_diff = 0, alpha = 0.025, power = 0.80,
                           design = c("two.sample", "paired")) {
   design <- match.arg(design)
   if (abs(true_diff) >= sesoi) stop("`true_diff` must be smaller than `sesoi` in absolute value.", call. = FALSE)
