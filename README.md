@@ -10,7 +10,7 @@ It accompanies the invited review *Statistically Significant, Clinically Meaning
 
 ## No R? Use the web app
 
-**[Open the free web app](https://zpapadakis.github.io/clinthresh/)** to interpret a published result (from the reported CI, group means and SDs, a paired difference, event counts, or your own pasted data), test non-inferiority, plan a trial, compute SWC and MDC, or browse the threshold table. It runs entirely in your browser; nothing you type is sent anywhere. (`run_app()` opens the same tools as a Shiny app from R.)
+**[Open the free web app](https://zpapadakis.github.io/clinthresh/)** to interpret a published result (from the reported CI, group means and SDs, a paired difference, event counts, or your own pasted data), test non-inferiority, plan a trial, compute SWC and MDC, or browse the threshold table. It runs entirely in your browser; nothing you type is sent anywhere. Each result comes with a sentence for your results and one for your methods, and the worked examples from the review load with one click. (`run_app()` opens the same tools as a Shiny app from R.)
 
 ## Install
 

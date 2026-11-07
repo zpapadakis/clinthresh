@@ -1,3 +1,8 @@
+# clinthresh 0.1.3
+
+* Web app: one-click worked examples from the review (KANON, de Vos et al., RESTORE, Rutjes et al., UKSTAR ATRS and re-rupture, caffeine crossover, CKD heart rate variability).
+* Web app: a ready-to-paste methods sentence for every result, and a "please cite" panel with a copy button.
+
 # clinthresh 0.1.2
 
 * New `tost_means()` (two groups, Welch or pooled; or paired from the mean and SD of the differences) and `tost_prop()` (risk difference in percentage points, Wald).
