@@ -138,7 +138,7 @@ a{color:var(--accent)}
 <p class="note" style="margin-top:0">Is a new option (cheaper, faster, less invasive) no worse than the standard by more than a margin? Enter the difference as new minus standard.</p>
 <div class="row"><div><label for="n_lo">Lower CI limit</label><input id="n_lo" type="number" step="any" value="-4.9"></div>
 <div><label for="n_hi">Upper CI limit</label><input id="n_hi" type="number" step="any" value="2.1"></div></div>
-<label for="n_est">Point estimate (optional)</label><input id="n_est" type="number" step="any">
+<label for="n_est">Point estimate (optional)</label><input id="n_est" type="number" step="any" value="-1.38">
 <div class="row"><div><label for="n_lvl">Reported CI level</label><select id="n_lvl"><option value="0.95">95%</option><option value="0.90">90%</option></select></div>
 <div><label for="n_m">Non-inferiority margin</label><input id="n_m" type="number" step="any" value="8" min="0"></div></div>
 <label>For this outcome, higher scores are</label>
@@ -220,7 +220,7 @@ a{color:var(--accent)}
 <tr><td>Practically equivalent</td><td>The interval includes zero and stays inside the threshold. The options can be treated as the same for patients.</td></tr>
 <tr><td>Inconclusive</td><td>The interval includes zero and reaches past the threshold. The study cannot tell. This is not evidence of no difference.</td></tr>
 </table>
-<p class="note">Zero is judged with the reported CI; the threshold is judged with the 90% CI (alpha = 0.05), which matches an equivalence test (two one-sided tests, TOST). Standard errors are recovered from the reported limits, so results from published summaries are approximations. With raw data, analyze the data directly (for example with the TOSTER or clinthresh R packages). The threshold must be chosen before looking at the result.</p>
+<p class="note">Zero and clinical importance are judged with the 95% CI (one-sided alpha = 0.025 for importance); equivalence is judged with the 90% CI (alpha = 0.05 per test), which matches the two one-sided tests (TOST) procedure. Standard errors are recovered from the reported limits, so results from published summaries are approximations. With raw data, analyze the data directly (for example with the TOSTER or clinthresh R packages). The threshold must be chosen before looking at the result.</p>
 <h3 style="font-size:1.05rem">Cite</h3>
 <p id="citetext">Papadakis Z. Statistically significant, clinically meaningful, or neither? Clinical thresholds, equivalence testing, and replicability in sports medicine rehabilitation. Curr Phys Med Rehabil Rep. Manuscript under review.<br>Software: Papadakis Z. clinthresh: clinical thresholds and equivalence tests (R package and web app). Zenodo. <a href="https://doi.org/10.5281/zenodo.24022248">https://doi.org/10.5281/zenodo.24022248</a></p>
 <p>R package, source code and the threshold table: <a href="https://github.com/zpapadakis/clinthresh">github.com/zpapadakis/clinthresh</a>. Worked examples from the review: <a href="https://doi.org/10.17605/OSF.IO/ZQM24">doi.org/10.17605/OSF.IO/ZQM24</a>.</p>
@@ -422,22 +422,22 @@ var PAPER_REF = 'Papadakis Z. Statistically significant, clinically meaningful, 
 var PAPER_SHORT = 'Papadakis, under review';
 var SOFT_REF = 'Papadakis Z. clinthresh: clinical thresholds and equivalence tests (R package and web app). Zenodo. https://doi.org/10.5281/zenodo.24022248';
 var PRESETS = [
- {label:'Example 1 · KANON: early vs optional delayed ACL reconstruction (KOOS4)', mode:'ci', lo:-6.5, hi:6.8, s:8, units:'points', note:'Frobell et al.; ±8 points chosen for the review. Pattern: practically equivalent.'},
- {label:'Example 2 · Knee replacement vs exercise-based treatment (KOOS4)', mode:'ci', lo:10.0, hi:21.5, s:8, units:'points', note:'Skou et al.; 8 points chosen for the review. Pattern: clinically important.'},
- {label:'Example 2 · Low- vs high-compression rehab, insertional Achilles tendinopathy (VISA-A)', mode:'ci', lo:6.2, hi:19.6, s:10, units:'points', note:'Pringels et al.; MCID of 10 set by the trialists. Pattern: real, importance unclear.'},
- {label:'Example 3 · Hyaluronic acid, large blinded trials (SMD)', mode:'ci', lo:-0.18, hi:-0.04, s:0.5, units:'SD units', note:'Rutjes et al.; ±0.5 SD chosen for the review (also equivalent at ±0.2 SD). Pattern: real but trivial.'},
- {label:'Example 4 · UKSTAR: brace vs cast, 9-month ATRS', mode:'ci', lo:-4.9, hi:2.1, s:8, units:'points', note:'Costa et al.; 8-point superiority MCID. Use the Non-inferiority tab for the one-sided reading.'},
- {label:'Example 4 · UKSTAR: re-rupture, brace vs cast (event counts)', mode:'props', x1:13, n1:274, x2:17, n2:266, s:6, units:'percentage points', note:'Costa et al.; ±6 percentage points is illustrative only. With a one-sided 95% (Newcombe) limit, the data exclude more than about 1.7 extra re-ruptures per 100.'},
- {label:'Also cited · PRP vs saline for Achilles tendinopathy (VISA-A)', mode:'ci', lo:-12.4, hi:10.6, s:12, units:'points', note:'de Vos et al.; 12 points pre-specified by the trialists (one-sided), applied symmetrically.'},
- {label:'Also cited · RESTORE: PRP vs saline for knee osteoarthritis pain', mode:'ci', lo:-0.9, hi:0.2, s:1.8, units:'points', note:'Bennell et al.; MCID of 1.8 pre-specified by the trialists.'},
- {label:'Personal observations · CKD: HIIE vs CMIE, fall in ln RMSSD (crossover)', mode:'paired', md:0.0214, sd:1.1565, n:20, s:0.4055, units:'ln units', note:'Papadakis, Grandjean & Forsse; illustrative bound of a 50% difference in RMSSD (ln 1.5). Pattern: inconclusive for any bound below 0.47 ln units (a 60% difference).'}
+ {label:'Example 1 · Hip arthroscopy vs physiotherapy for femoroacetabular impingement (iHOT-33, meta-analysis)', mode:'ci', lo:6.54, hi:14.76, est:10.65, s:6, units:'points', note:'Lamo-Espinosa et al.; 6-point MCID adopted by the meta-analysts. Pattern: clinically important; clears any threshold up to 6.54 points.'},
+ {label:'Example 2 · Low- vs high-compression rehab, insertional Achilles tendinopathy (VISA-A)', mode:'ci', lo:6.2, hi:19.6, est:12.9, s:10, units:'points', note:'Pringels et al.; MCID of 10 set by the trialists. Pattern: real, importance unclear; clears thresholds only up to 6.2 points.'},
+ {label:'Example 3 · PRP vs control, pain after hamstring injury (VAS, meta-analysis)', mode:'ci', lo:0.12, hi:0.74, est:0.43, s:1, units:'points', note:'Bensa et al.; ±1 point chosen for the review. Pattern: real but trivial; equivalent for any bound of 0.69 or more.'},
+ {label:'Example 4 · KANON: early vs optional delayed ACL reconstruction (KOOS4)', mode:'ci', lo:-6.5, hi:6.8, est:0.2, s:8, units:'points', note:'Frobell et al.; ±8 points chosen for the review. Pattern: practically equivalent for any bound of 5.8 points or more.'},
+ {label:'Example 5 · UKSTAR: brace vs cast, 9-month ATRS (equivalence at ±4.5)', mode:'ci', lo:-4.9, hi:2.1, est:-1.38, s:4.5, units:'points', note:'Costa et al.; equivalent within ±4.5 points (90% CI), yet non-inferior only for margins of 4.9 or more (95% CI). The Non-inferiority tab is preloaded with this trial.'},
+ {label:'Example 5 · UKSTAR: re-rupture, brace vs cast (event counts)', mode:'props', x1:13, n1:274, x2:17, n2:266, s:6, units:'percentage points', note:'Costa et al.; ±6 percentage points is illustrative only. The 95% Newcombe interval is −5.8 to 2.3 percentage points.'},
+ {label:'Example 6 · PRP vs no injection, return to play after hamstring injury (days)', mode:'ci', lo:-1.4, hi:7.2, est:2.9, s:5, units:'days', note:'Hamilton et al.; positive = PRP sooner; ±5 days chosen for the review. Pattern: inconclusive; equivalent only for bounds of 6.5 days or more.'},
+ {label:'Example 7 · PRP vs control, return to sport after hamstring injury (days, meta-analysis)', mode:'ci', lo:4.92, hi:10.17, est:7.54, s:7, units:'days', note:'Bensa et al.; 7 days chosen for the review. Pattern: real, importance unclear at 7 days; clears any threshold up to 4.92 days.'},
+ {label:'Personal observations · CKD: HIIE vs CMIE, fall in ln RMSSD (crossover)', mode:'paired', md:0.0214, sd:1.1565, n:20, s:0.4055, units:'ln units', note:'Papadakis, Grandjean & Forsse; illustrative bound of a 50% difference in RMSSD (ln 1.5). Pattern: inconclusive; 90% CI −0.43 to 0.47 ln units (35% lower to 60% higher).'}
 ];
 function loadPreset(){
  var k=$('i_preset').value; if(k===''){ $('i_presetnote').textContent=''; return; }
  var P=PRESETS[+k];
  $('i_mode').value=P.mode; LASTMODE=P.mode;
  document.querySelector('input[name="i_src"][value="own"]').checked=true;
- if(P.mode==='ci'){ $('i_lo').value=P.lo; $('i_hi').value=P.hi; $('i_est').value=''; $('i_lvl').value='0.95'; $('i_df').value=''; }
+ if(P.mode==='ci'){ $('i_lo').value=P.lo; $('i_hi').value=P.hi; $('i_est').value=(P.est===undefined?'':P.est); $('i_lvl').value='0.95'; $('i_df').value=''; }
  if(P.mode==='props'){ $('x1').value=P.x1; $('n1').value=P.n1; $('x2').value=P.x2; $('n2').value=P.n2; }
  if(P.mode==='paired'){ $('pd_m').value=P.md; $('pd_s').value=P.sd; $('pd_n').value=P.n; }
  $('i_sesoi').value=P.s; $('i_units').value=P.units; $('i_alpha').value='0.05';
@@ -510,8 +510,11 @@ function interpret(){
  var lo2 = r.ciReported[0], hi2 = r.ciReported[1];
  var key = r.pattern.replace(/ \(.*/,''), m = MEAN[key];
  var big = key==='Clinically important', up = r.estimate>0;
- var pMet = up ? r.pMetAbove : r.pMetBelow, clears = up ? r.ciEq[0] : -r.ciEq[1];
- $('i_verdict').innerHTML = esc(r.pattern) + '<span class="pill" style="color:'+m[0]+'">'+(big?'Minimum-effect P ':'TOST P ')+pTxt(big?pMet:r.pTost)+'</span>';
+ var c95 = isFinite(r.df) ? jStat.studentt.inv(0.975, r.df) : jStat.normal.inv(0.975, 0, 1);
+ var imp = [r.estimate - c95 * r.se, r.estimate + c95 * r.se];
+ var pMet = up ? r.pMetAbove : r.pMetBelow, clears = up ? imp[0] : -imp[1];
+ var unclear = key==='Real, importance unclear';
+ $('i_verdict').innerHTML = esc(r.pattern) + '<span class="pill" style="color:'+m[0]+'">'+((big||unclear)?'Minimum-effect P ':'TOST P ')+pTxt((big||unclear)?pMet:r.pTost)+'</span>';
  $('i_meaning').textContent = m[1];
  var eqL = +(100*(1-2*alpha)).toFixed(1);
  plot($('i_plot'), {lo:lo2,hi:hi2,est:r.estimate,b0:-s,b1:s,e0:r.ciEq[0],e1:r.ciEq[1],label:r.pattern,bandLabel:'equivalence region ±'+f(s,2),eqLabel:eqL+'% CI'});
@@ -519,7 +522,8 @@ function interpret(){
   '<tr><td>'+f(r.estimate)+'</td><td>'+f(lo2)+' to '+f(hi2)+'</td><td>'+pf(r.pNhst)+'</td><td>±'+f(s)+'</td><td>'+f(r.ciEq[0])+' to '+f(r.ciEq[1])+'</td><td>'+pf(r.pTost)+'</td><td>±'+f(r.tightest)+'</td></tr>';
  var u = $('i_units').value ? ' '+$('i_units').value : '';
  $('i_sentence').textContent = 'The difference was '+f(r.estimate)+u+' ('+Math.round(100*lvl)+'% CI '+f(lo2)+' to '+f(hi2)+'; P '+pTxt(r.pNhst)+'). Against equivalence bounds of '+f(-s)+' to '+f(s)+u+', the '+eqL+'% CI ('+f(r.ciEq[0])+' to '+f(r.ciEq[1])+') '+(r.equivalent?'lies inside':'is not inside')+' the bounds (TOST P '+pTxt(r.pTost)+'); '+TAIL[key]+' The result would support equivalence for any bound wider than ±'+f(r.tightest)+u+'.';
- if(big){ $('i_sentence').textContent = 'The difference was '+f(r.estimate)+u+' ('+Math.round(100*lvl)+'% CI '+f(lo2)+' to '+f(hi2)+'; P '+pTxt(r.pNhst)+'). Against a threshold of '+f(s)+u+', the whole '+eqL+'% CI ('+f(r.ciEq[0])+' to '+f(r.ciEq[1])+') lies beyond it (one-sided minimum-effect P '+pTxt(pMet)+'); '+TAIL[key]+' The result would clear any threshold up to '+f(clears)+u+'.'; }
+ if(big){ $('i_sentence').textContent = 'The difference was '+f(r.estimate)+u+' ('+Math.round(100*lvl)+'% CI '+f(lo2)+' to '+f(hi2)+'; P '+pTxt(r.pNhst)+'). Against a threshold of '+f(s)+u+', the whole 95% CI ('+f(imp[0])+' to '+f(imp[1])+') lies beyond it (one-sided minimum-effect P '+pTxt(pMet)+'); '+TAIL[key]+' The result would clear any threshold up to '+f(clears)+u+'.'; }
+ if(unclear){ $('i_sentence').textContent += ' Against the threshold itself, the one-sided minimum-effect P '+pTxt(pMet)+'; the 95% CI clears any threshold up to '+f(clears)+u+'.'; }
  var tech = 'Method: '+method+'. One-sided P values: lower bound '+pf(r.pLower)+', upper bound '+pf(r.pUpper)+'.'+extra;
  $('i_methods').textContent = methodsSentence(r, method, s, $('i_units').value, alpha, refRow);
  $('i_refnote').innerHTML = (refRow ? 'Threshold source: '+esc(refRow.source)+(refRow.doi?' (<a href="https://doi.org/'+esc(refRow.doi)+'" target="_blank" rel="noopener">doi</a>)':'')+'. '+esc(refRow.method)+'. Level: '+esc(refRow.level)+'. '+esc(refRow.notes)+'<br>' : 'Tightest bound: the narrowest symmetric threshold that the result would still satisfy. If your threshold was not chosen before looking at the result, report this number too.<br>') + esc(tech);

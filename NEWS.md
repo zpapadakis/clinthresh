@@ -1,3 +1,10 @@
+# clinthresh 0.1.7
+
+* Web app: worked examples now match the seven rows of Table 2 in the review (hip arthroscopy meta-analysis, insertional Achilles tendinopathy, PRP and hamstring pain, KANON, UKSTAR function and re-rupture, PRP versus no injection, PRP and return to sport) plus the kidney disease example; examples load the reported point estimate.
+* Web app: clinical importance and the "clears any threshold up to" value now use the 95% CI (one-sided alpha = 0.025), as in the review; equivalence still uses the 90% CI. Results that are real but of unclear importance also report the one-sided minimum-effect P and the largest threshold the 95% CI clears.
+* Web app: the non-inferiority tab loads the UKSTAR point estimate (-1.38).
+* Tests: new `test-review-table2.R` checks every row of Table 2.
+
 # clinthresh 0.1.6
 
 * Web app: event-count comparisons now use Newcombe hybrid score intervals (P values still from the Wald z statistic), matching the re-rupture analysis in the review.
