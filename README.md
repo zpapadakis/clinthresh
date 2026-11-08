@@ -47,21 +47,21 @@ The KANON trial reported a 2-year KOOS4 difference of -0.2 points (early minus o
 
 ```r
 library(clinthresh)
-read_ci(lower = -6.8, upper = 6.5, estimate = -0.2, threshold = 8)
+read_ci(lower = -6.8, upper = 6.5, estimate = -0.2, threshold = 10)
 #> Reading a published result (no test against a post hoc threshold)
 #>   Estimate -0.20 (95% CI -6.80 to 6.50)
 #>   Equivalence holds for symmetric bounds >= 6.80
 #>   Importance holds for thresholds <= none (interval includes zero)
 #>   Non-inferiority holds for margins >= 6.80
-#>   Against a threshold of 8.00: Practically equivalent
+#>   Against a threshold of 10.00: Practically equivalent
 ```
 
-The two strategies are practically equivalent for any bound of 6.8 KOOS4 points or more, which includes the 8 to 10 points the KOOS developers proposed for each subscale. A reader who considers a 5-point difference important should read the trial as inconclusive.
+The two strategies are practically equivalent for any bound of 6.8 KOOS4 points or more, which includes the 10-point difference the trial was powered to detect; for any threshold below 6.8 points the result is inconclusive.
 
 ## Example: planning a trial
 
 ```r
-tost_ci(lower = -6.8, upper = 6.5, sesoi = 8, estimate = -0.2)  # only for a bound fixed in advance
+tost_ci(lower = -6.8, upper = 6.5, sesoi = 10, estimate = -0.2)  # only for a bound fixed in advance
 n_equivalence(sesoi = 8, sd = 20)          # 133 per group for 80% power (alpha = 0.025 per side)
 small_telescope(25, type = "paired", sd = 3.26)   # bound for replicating a 25-athlete crossover: 1.04 cm
 ```
@@ -94,7 +94,7 @@ citation("clinthresh")
 
 Papadakis Z. Statistically significant, clinically meaningful, or neither? clinical thresholds, equivalence testing, and replicability in sports medicine rehabilitation. *Curr Phys Med Rehabil Rep*. 2027.
 
-Papadakis Z. clinthresh: clinical thresholds, equivalence tests and replicability tools for sports medicine research. R package version 0.1.9. 2026. https://doi.org/10.5281/zenodo.24022248
+Papadakis Z. clinthresh: clinical thresholds, equivalence tests and replicability tools for sports medicine research. R package version 0.1.10. 2026. https://doi.org/10.5281/zenodo.24022248
 
 ## Worked examples
 

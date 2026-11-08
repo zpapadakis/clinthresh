@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite both the software and the article below."
 title: "clinthresh: Clinical Thresholds, Equivalence Tests and Replicability Tools for Sports Medicine Research"
-version: 0.1.9
+version: 0.1.10
 doi: "10.5281/zenodo.24022248"
 url: "https://zpapadakis.github.io/clinthresh/"
 license: MIT

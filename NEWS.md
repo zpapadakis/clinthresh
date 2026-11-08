@@ -1,3 +1,8 @@
+# clinthresh 0.1.10
+
+* Web app worked examples aligned with the final Table 2 of the review: KANON uses the 10-point between-group difference the trial was powered to detect; the pain example reports the full range (important only up to 0.12, unresolved to 0.74, trivial beyond); the UKSTAR note reads non-inferiority as a range without a review-chosen margin.
+* README KANON example uses the trialists' 10-point target.
+
 # clinthresh 0.1.9
 
 * **Reading mode versus planning mode.** Tests against a threshold keep their error rate only when the threshold was fixed before the data were seen. New `read_ci()` is for readers of a published trial: it reports the range of thresholds for which each conclusion holds (equivalence, importance, non-inferiority) and the pattern against a threshold set outside the data, with no P value against a post hoc threshold. `tost_ci()` and friends remain for thresholds fixed in a protocol.
