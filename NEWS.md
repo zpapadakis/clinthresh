@@ -1,3 +1,11 @@
+# clinthresh 0.1.9
+
+* **Reading mode versus planning mode.** Tests against a threshold keep their error rate only when the threshold was fixed before the data were seen. New `read_ci()` is for readers of a published trial: it reports the range of thresholds for which each conclusion holds (equivalence, importance, non-inferiority) and the pattern against a threshold set outside the data, with no P value against a post hoc threshold. `tost_ci()` and friends remain for thresholds fixed in a protocol.
+* Web app: a mode switch at the top. Reading mode (default) shows the pattern, the threshold ranges and a reading-mode sentence and methods sentence without P values against the threshold, and fixes every judgment to the 95% CI; planning mode shows the equivalence, minimum-effect and non-inferiority tests at the chosen alpha. The non-inferiority tab follows the same switch.
+* Web app worked examples now use published reference thresholds (labeled by level and source) rather than thresholds chosen for the review, matching Table 2 of the review (vs24): pain 2 points (nearest published value), KANON 8 points (KOOS developers, per subscale), return to play 10 days (indirect physiotherapy anchor) for both PRP examples.
+* Within-patient threshold caution now says the bias can run in either direction.
+* README: reading versus planning; KANON example uses `read_ci()`. Citation entries corrected (version 0.1.9; review under review).
+
 # clinthresh 0.1.8
 
 * **One error rate.** `tost_ci()`, `tost_se()`, `tost_means()`, `tost_prop()`, `power_equivalence()` and `n_equivalence()` now default to alpha = 0.025 per one-sided test, matching `n_noninferiority()` and the CONSORT convention for equivalence and non-inferiority trials. Every judgment (zero, importance, equivalence, non-inferiority) then uses the 95% interval a paper prints, a result equivalent within a bound is always non-inferior at a margin of the same size, and the five patterns cannot overlap. Use `alpha = 0.05` for bioequivalence or TOSTER defaults.

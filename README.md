@@ -23,7 +23,8 @@ remotes::install_github("zpapadakis/clinthresh")
 
 | Question | Function |
 |---|---|
-| Does this published result show a clinically important effect, a trivial one, equivalence, or nothing conclusive? | `tost_ci()`, `classify_ci()` |
+| I am reading a published trial: for which thresholds does each conclusion hold? (no test against a post hoc threshold) | `read_ci()`, `classify_ci()` |
+| I fixed a threshold in my protocol: test equivalence, importance or non-inferiority | `tost_ci()` |
 | I have an estimate and a standard error | `tost_se()` |
 | I have group means and SDs (or a paired difference) | `tost_means()` |
 | I have event counts in two groups | `tost_prop()` |
@@ -36,25 +37,31 @@ remotes::install_github("zpapadakis/clinthresh")
 | What thresholds have been published for KOOS, IKDC, VISA-P, LEFS, FAAM, ASES, DASH, pain NRS, ODI? | `mcid_reference` |
 | Point-and-click version | `run_app()` |
 
+## Reading a published trial versus planning one
+
+Tests against a threshold keep their error rate only when the threshold was fixed before the data were seen, as in a protocol. A clinician reading a finished trial sees the result first, so `read_ci()` gives no P value against a threshold. It reports the range of thresholds for which each conclusion holds and, if you supply a threshold published independently of the trial, the pattern of the interval against it. The web app does the same in its default reading mode; planning mode runs the tests.
+
 ## Example: a "negative" ACL trial that is really informative
 
-The KANON trial reported a 2-year KOOS4 difference of 0.2 points (95% CI -6.5 to 6.8; P = 0.96). Is that "no evidence of a difference" or "evidence of no important difference"?
+The KANON trial reported a 2-year KOOS4 difference of -0.2 points (early minus optional reconstruction; 95% CI -6.8 to 6.5; P = 0.96). Is that "no evidence of a difference" or "evidence of no important difference"?
 
 ```r
 library(clinthresh)
-tost_ci(lower = -6.5, upper = 6.8, sesoi = 8, estimate = 0.2)
-#> Equivalence test (TOST)
-#>   Estimate: 0.200 (95% CI -6.50 to 6.80), P = 0.95
-#>   Bounds: -8.00 to 8.00
-#>   95% CI: -6.50 to 6.80; TOST P = 0.01
-#>   Pattern: Practically equivalent
+read_ci(lower = -6.8, upper = 6.5, estimate = -0.2, threshold = 8)
+#> Reading a published result (no test against a post hoc threshold)
+#>   Estimate -0.20 (95% CI -6.80 to 6.50)
+#>   Equivalence holds for symmetric bounds >= 6.80
+#>   Importance holds for thresholds <= none (interval includes zero)
+#>   Non-inferiority holds for margins >= 6.80
+#>   Against a threshold of 8.00: Practically equivalent
 ```
 
-Against an 8-point threshold, the trial supports equivalence: early reconstruction gave no clinically important advantage in KOOS4. The conclusion holds for any bound of 6.8 points or more, the larger absolute limit of the printed 95% CI.
+The two strategies are practically equivalent for any bound of 6.8 KOOS4 points or more, which includes the 8 to 10 points the KOOS developers proposed for each subscale. A reader who considers a 5-point difference important should read the trial as inconclusive.
 
 ## Example: planning a trial
 
 ```r
+tost_ci(lower = -6.8, upper = 6.5, sesoi = 8, estimate = -0.2)  # only for a bound fixed in advance
 n_equivalence(sesoi = 8, sd = 20)          # 133 per group for 80% power (alpha = 0.025 per side)
 small_telescope(25, type = "paired", sd = 3.26)   # bound for replicating a 25-athlete crossover: 1.04 cm
 ```
@@ -87,7 +94,7 @@ citation("clinthresh")
 
 Papadakis Z. Statistically significant, clinically meaningful, or neither? clinical thresholds, equivalence testing, and replicability in sports medicine rehabilitation. *Curr Phys Med Rehabil Rep*. 2027.
 
-Papadakis Z. clinthresh: clinical thresholds, equivalence tests and replicability tools for sports medicine research. R package version 0.1.1. 2026. https://doi.org/10.5281/zenodo.24022248
+Papadakis Z. clinthresh: clinical thresholds, equivalence tests and replicability tools for sports medicine research. R package version 0.1.9. 2026. https://doi.org/10.5281/zenodo.24022248
 
 ## Worked examples
 

@@ -16,7 +16,7 @@ ref$label <- paste0(ref$instrument, " - ", ref$subscale, ": ", ref$value, " ", r
 cite_text <- paste(
   "If this tool helped your work, please cite: Papadakis Z. Statistically significant, clinically",
   "meaningful, or neither? Clinical thresholds, equivalence testing, and replicability in",
-  "sports medicine rehabilitation. Curr Phys Med Rehabil Rep. 2027.",
+  "sports medicine rehabilitation. Curr Phys Med Rehabil Rep. Manuscript under review.",
   "Software: Papadakis Z. clinthresh: clinical thresholds and equivalence tests (R package).")
 
 fp <- function(p) if (p < 0.001) "< 0.001" else if (p < 0.01) sprintf("%.3f", p) else sprintf("%.2f", p)
@@ -33,6 +33,9 @@ ui <- fluidPage(
     tabPanel("Interpret a result",
       sidebarLayout(
         sidebarPanel(
+          radioButtons("rmode", "What are you doing?",
+                       c("Reading a published trial (threshold not fixed by me in advance)" = "read",
+                         "Planning or reporting my own trial (threshold fixed in advance)" = "plan")),
           p("Enter a between-group difference and its confidence interval as reported in a paper."),
           numericInput("lo", "Lower confidence limit", -6.5),
           numericInput("hi", "Upper confidence limit", 6.8),
@@ -108,6 +111,8 @@ server <- function(input, output, session) {
             estimate = if (is.na(input$est)) NULL else input$est,
             level = as.numeric(input$lvl), df = if (is.na(input$df)) Inf else input$df)
   })
+  rd <- reactive(read_ci(input$lo, input$hi, estimate = if (is.na(input$est)) NULL else input$est,
+                          threshold = thr(), level = as.numeric(input$lvl)))
   output$verdict <- renderText(paste("Pattern:", res()$pattern))
   output$meaning <- renderText(switch(sub(" \\(.*", "", res()$pattern),
     "Clinically important" = "What it means: the effect is real and large enough to matter to patients.",
@@ -121,12 +126,29 @@ server <- function(input, output, session) {
   })
   output$tab <- renderTable({
     r <- res()
+    if (input$rmode == "read") {
+      x <- rd()
+      return(data.frame(Estimate = r$estimate, `Reported CI` = sprintf("%.2f to %.2f", r$ci_reported[1], r$ci_reported[2]),
+                        `P (vs 0)` = fp(r$p_nhst), `Your threshold` = sprintf("%.2f", thr()),
+                        `Equivalence holds for bounds >=` = sprintf("%.2f", x$equivalence_holds_for),
+                        `Importance holds for thresholds <=` = if (is.na(x$importance_holds_for)) "none (CI includes zero)" else sprintf("%.2f", x$importance_holds_for),
+                        check.names = FALSE))
+    }
     data.frame(Estimate = r$estimate, `Reported CI` = sprintf("%.2f to %.2f", r$ci_reported[1], r$ci_reported[2]),
                `P (vs 0)` = fp(r$p_nhst), Bounds = sprintf("%.2f to %.2f", r$bounds[1], r$bounds[2]),
                `Equivalence CI` = sprintf("%.2f to %.2f", r$ci_equivalence[1], r$ci_equivalence[2]),
                `TOST P` = fp(r$p_tost), check.names = FALSE)
   }, digits = 2)
-  output$sentence <- renderText(report_sentence(res(), units = input$units))
+  output$sentence <- renderText({
+    if (input$rmode == "plan") return(report_sentence(res(), units = input$units))
+    x <- rd(); u <- if (nzchar(input$units)) paste0(" ", input$units) else ""
+    paste0(sprintf("The difference was %.2f%s (%g%% CI %.2f to %.2f). ", x$estimate, u, 100 * x$level, x$ci[1], x$ci[2]),
+           sprintf("The interval supports practical equivalence for any bound of %.2f%s or wider", x$equivalence_holds_for, u),
+           if (is.na(x$importance_holds_for)) ", and because it includes zero it cannot show a clinically important effect. "
+           else sprintf(" and a clinically important effect for any threshold up to %.2f%s. ", x$importance_holds_for, u),
+           sprintf("Against a threshold of %.2f%s, the result is %s. ", thr(), u, tolower(x$pattern)),
+           "No P value is given against this threshold, because it was not fixed before the result was seen.")
+  })
   output$refnote <- renderUI({
     if (input$src != "table") return(NULL)
     i <- match(input$refrow, ref$label)
