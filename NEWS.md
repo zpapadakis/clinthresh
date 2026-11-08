@@ -1,6 +1,6 @@
 # clinthresh 0.2.0 (submission release)
 
-Release that accompanies the submitted review (manuscript vs25). It consolidates 0.1.1 to 0.1.10.
+Companion software for the review "Statistically Significant, Clinically Meaningful, or Neither? Clinical Thresholds, Equivalence Testing, and Replicability in Sports Medicine Rehabilitation" (submitted to Current Physical Medicine and Rehabilitation Reports).
 
 * Reading mode (default) and planning mode in the web app and Shiny app; `read_ci()` for readers of published trials.
 * One error rate: every test defaults to alpha = 0.025 per one-sided test, matching the reported 95% CI.
