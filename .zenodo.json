@@ -22,7 +22,7 @@
     "Shiny"
   ],
   "description": "R package and web app to read and design sports medicine and rehabilitation studies against thresholds of clinical importance: equivalence tests from published confidence intervals, interval classification, SWC, SEM, MDC, small-telescopes bounds, equivalence and non-inferiority sample sizes, and a sourced reference table of minimal important differences. The author developed the package and web app with the help of an AI assistant (Claude, Anthropic), tested them and is responsible for them.",
-  "version": "0.1.10",
+  "version": "0.2.0",
   "related_identifiers": [
     {
       "identifier": "https://zpapadakis.github.io/clinthresh/",

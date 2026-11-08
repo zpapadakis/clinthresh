@@ -1,3 +1,11 @@
+# clinthresh 0.2.0 (submission release)
+
+Release that accompanies the submitted review (manuscript vs25). It consolidates 0.1.1 to 0.1.10.
+
+* Reading mode (default) and planning mode in the web app and Shiny app; `read_ci()` for readers of published trials.
+* One error rate: every test defaults to alpha = 0.025 per one-sided test, matching the reported 95% CI.
+* Worked examples match Table 2 of the review: thresholds taken in a fixed order of preference (trialists' between-group value, elicited smallest worthwhile effect, within-patient MCID from a similar population, indirect anchor), each labeled by level and source; UKSTAR notes the published 10-point ATRS non-inferiority margin (indirect); the PRP prediction interval is given with 5 and 4 df.
+
 # clinthresh 0.1.10
 
 * Web app worked examples aligned with the final Table 2 of the review: KANON uses the 10-point between-group difference the trial was powered to detect; the pain example reports the full range (important only up to 0.12, unresolved to 0.74, trivial beyond); the UKSTAR note reads non-inferiority as a range without a review-chosen margin.

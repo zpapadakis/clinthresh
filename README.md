@@ -94,7 +94,7 @@ citation("clinthresh")
 
 Papadakis Z. Statistically significant, clinically meaningful, or neither? clinical thresholds, equivalence testing, and replicability in sports medicine rehabilitation. *Curr Phys Med Rehabil Rep*. 2027.
 
-Papadakis Z. clinthresh: clinical thresholds, equivalence tests and replicability tools for sports medicine research. R package version 0.1.10. 2026. https://doi.org/10.5281/zenodo.24022248
+Papadakis Z. clinthresh: clinical thresholds, equivalence tests and replicability tools for sports medicine research. R package version 0.2.0. 2026. https://doi.org/10.5281/zenodo.24022248
 
 ## Worked examples
 
