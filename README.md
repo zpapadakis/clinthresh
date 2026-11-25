@@ -6,7 +6,7 @@
 
 A non-significant P value does not show that two treatments are equivalent, and a significant one does not show that an effect matters. `clinthresh` helps clinicians, authors and reviewers read a result against a threshold of clinical importance instead of against zero. It works from the numbers printed in an abstract, so you do not need the raw data.
 
-It accompanies the invited review *Statistically Significant, Clinically Meaningful, or Neither? Clinical Thresholds, Equivalence Testing, and Replicability in Sports Medicine Rehabilitation* (Current Physical Medicine and Rehabilitation Reports, 2027).
+It accompanies the invited review *Statistically Significant, Clinically Meaningful, or Neither? Clinical Thresholds and Equivalence Testing in Sports Medicine Rehabilitation* (Current Physical Medicine and Rehabilitation Reports, 2027).
 
 ## No R? Use the web app
 
@@ -92,7 +92,7 @@ If you use the package or the app, please cite both the review and the software:
 citation("clinthresh")
 ```
 
-Papadakis Z. Statistically significant, clinically meaningful, or neither? clinical thresholds, equivalence testing, and replicability in sports medicine rehabilitation. *Curr Phys Med Rehabil Rep*. 2027.
+Papadakis Z. Statistically significant, clinically meaningful, or neither? clinical thresholds and equivalence testing in sports medicine rehabilitation. *Curr Phys Med Rehabil Rep*. 2027.
 
 Papadakis Z. clinthresh: clinical thresholds, equivalence tests and replicability tools for sports medicine research. R package version 0.2.0. 2026. https://doi.org/10.5281/zenodo.24022248
 
