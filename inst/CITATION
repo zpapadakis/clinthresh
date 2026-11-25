@@ -1,11 +1,11 @@
 bibentry(
   bibtype = "Article",
-  title = "Statistically Significant, Clinically Meaningful, or Neither? Clinical Thresholds, Equivalence Testing, and Replicability in Sports Medicine Rehabilitation",
+  title = "Statistically Significant, Clinically Meaningful, or Neither? Clinical Thresholds and Equivalence Testing in Sports Medicine Rehabilitation",
   author = person("Zacharias", "Papadakis"),
   journal = "Current Physical Medicine and Rehabilitation Reports",
   year = "2026",
   note = "Manuscript under review",
-  textVersion = "Papadakis Z. Statistically significant, clinically meaningful, or neither? clinical thresholds, equivalence testing, and replicability in sports medicine rehabilitation. Curr Phys Med Rehabil Rep. Manuscript under review."
+  textVersion = "Papadakis Z. Statistically significant, clinically meaningful, or neither? clinical thresholds and equivalence testing in sports medicine rehabilitation. Curr Phys Med Rehabil Rep. Manuscript under review."
 )
 bibentry(
   bibtype = "Manual",

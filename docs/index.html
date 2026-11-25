@@ -231,7 +231,7 @@ a{color:var(--accent)}
 <h3 style="font-size:1.05rem">Reading mode and planning mode</h3>
 <p class="note">Tests against a threshold keep their error rate only if the threshold was fixed before the data were seen, as in a trial protocol. Use planning mode for that. When you read a published trial, you see the result first, so reading mode gives no P value against your threshold. It reports the pattern of the 95% CI against your threshold and the range of thresholds for which each conclusion holds: equivalence for any bound at least as wide as the larger absolute limit, importance for any threshold up to the limit nearest zero, and non-inferiority for any margin beyond the unfavorable limit. Write your threshold down, with its source and level (within-patient or between-group), before you open the results.</p>
 <h3 style="font-size:1.05rem">Cite</h3>
-<p id="citetext">Papadakis Z. Statistically significant, clinically meaningful, or neither? Clinical thresholds, equivalence testing, and replicability in sports medicine rehabilitation. Curr Phys Med Rehabil Rep. Manuscript under review.<br>Software: Papadakis Z. clinthresh: clinical thresholds and equivalence tests (R package and web app). Zenodo. <a href="https://doi.org/10.5281/zenodo.24022248">https://doi.org/10.5281/zenodo.24022248</a></p>
+<p id="citetext">Papadakis Z. Statistically significant, clinically meaningful, or neither? Clinical thresholds and equivalence testing in sports medicine rehabilitation. Curr Phys Med Rehabil Rep. Manuscript under review.<br>Software: Papadakis Z. clinthresh: clinical thresholds and equivalence tests (R package and web app). Zenodo. <a href="https://doi.org/10.5281/zenodo.24022248">https://doi.org/10.5281/zenodo.24022248</a></p>
 <p>R package, source code and the threshold table: <a href="https://github.com/zpapadakis/clinthresh">github.com/zpapadakis/clinthresh</a>. Worked examples from the review: <a href="https://doi.org/10.17605/OSF.IO/ZQM24">doi.org/10.17605/OSF.IO/ZQM24</a>.</p>
 <p class="note">Free and open source (MIT license). The calculations are a JavaScript port of the clinthresh R package and were checked against it and against the TOSTER R package (same P values to four significant figures for the published examples in the review and for the means, paired and proportion inputs). The author developed this app and the R package with the help of an AI assistant (Claude, Anthropic), tested them and is responsible for them. Report errors or suggest thresholds through the GitHub repository.</p>
 </div>
@@ -408,7 +408,7 @@ var TAIL = {
 
 // one-row interval plot
 function plot(el, o){
- var W = 640, H = 120, pad = 30;
+ var W = 640, H = o.xTitle ? 142 : 120, pad = 30;
  var xs = [o.lo, o.hi, o.b0, o.b1, 0, o.e0, o.e1].filter(isFinite);
  var mn = Math.min.apply(null,xs), mx = Math.max.apply(null,xs), span = (mx-mn)||1; mn -= span*0.12; mx += span*0.12;
  var X = function(v){ return pad + (v-mn)/(mx-mn)*(W-2*pad); };
@@ -422,13 +422,15 @@ function plot(el, o){
  s += '<circle cx="'+X(o.est)+'" cy="'+y+'" r="5.5" fill="var(--ink)"/>';
  var ticks = [mn+(mx-mn)*0.1, (mn+mx)/2, mx-(mx-mn)*0.1];
  if(isFinite(o.b0)) ticks.push(o.b0); if(isFinite(o.b1)) ticks.push(o.b1); ticks.push(0);
- ticks.forEach(function(t,i){ if(i<3) return; s += '<text x="'+X(t)+'" y="'+(H-8)+'" text-anchor="middle">'+f(t,2)+'</text>'; });
+ var ty = o.xTitle ? H-28 : H-8;
+ ticks.forEach(function(t,i){ if(i<3) return; s += '<text x="'+X(t)+'" y="'+ty+'" text-anchor="middle">'+f(t,2)+'</text>'; });
+ if(o.xTitle) s += '<text x="'+(W/2)+'" y="'+(H-6)+'" text-anchor="middle" font-weight="600">'+esc(o.xTitle)+'</text>';
  s += '<text x="'+pad+'" y="14">Shaded: '+esc(o.bandLabel)+'. Thin line: reported CI. Thick line: '+esc(o.eqLabel)+'.</text>';
  s += '</svg>'; el.innerHTML = s;
 }
 
 
-var PAPER_REF = 'Papadakis Z. Statistically significant, clinically meaningful, or neither? Clinical thresholds, equivalence testing, and replicability in sports medicine rehabilitation. Curr Phys Med Rehabil Rep. Manuscript under review.';
+var PAPER_REF = 'Papadakis Z. Statistically significant, clinically meaningful, or neither? Clinical thresholds and equivalence testing in sports medicine rehabilitation. Curr Phys Med Rehabil Rep. Manuscript under review.';
 var PAPER_SHORT = 'Papadakis, under review';
 var SOFT_REF = 'Papadakis Z. clinthresh: clinical thresholds and equivalence tests (R package and web app). Zenodo. https://doi.org/10.5281/zenodo.24022248';
 var PRESETS = [
@@ -507,6 +509,7 @@ function interpret(){
      g = CT.fromProps(x1,n1,x2,n2);
      if(g.se===0) return clear('The standard error is zero (0% or 100% in both groups); this method cannot be used.');
      extra = ' Proportions: '+f(100*g.p1,1)+'% vs '+f(100*g.p2,1)+'%. Intervals use the Newcombe method; P values use the Wald z statistic and are approximate with very few events.';
+     if(x1>0&&x2>0){ var rr=(x1/n1)/(x2/n2), lse=Math.sqrt(1/x1-1/n1+1/x2-1/n2); extra += ' Risk ratio (group 1 / group 2) '+f(rr,2)+' (95% CI '+f(rr*Math.exp(-1.959964*lse),2)+' to '+f(rr*Math.exp(1.959964*lse),2)+'; log method). Thresholds and the plot use the risk difference.'; }
    } else {
      var a=parseNums($('raw1').value), b=parseNums($('raw2').value), paired = radio('raw_des')==='paired';
      if(a.length<2||b.length<2) return clear('Paste at least two numbers in each box.');
@@ -534,7 +537,8 @@ function interpret(){
  $('i_verdict').innerHTML = esc(r.pattern) + '<span class="pill" style="color:'+m[0]+'">'+((big||unclear)?'Minimum-effect P ':'TOST P ')+pTxt((big||unclear)?pMet:r.pTost)+'</span>';
  $('i_meaning').textContent = m[1];
  var eqL = +(100*(1-2*alpha)).toFixed(1);
- plot($('i_plot'), {lo:lo2,hi:hi2,est:r.estimate,b0:-s,b1:s,e0:r.ciEq[0],e1:r.ciEq[1],label:r.pattern,bandLabel:'equivalence region ±'+f(s,2),eqLabel:eqL+'% CI'});
+ var uu0 = $('i_units').value, xT = (mode==='props' ? 'Risk difference, group 1 − group 2 (percentage points)' : 'Difference, group 1 − group 2'+(uu0?' ('+uu0+')':''));
+ plot($('i_plot'), {lo:lo2,hi:hi2,est:r.estimate,b0:-s,b1:s,e0:r.ciEq[0],e1:r.ciEq[1],label:r.pattern,bandLabel:'equivalence region ±'+f(s,2),eqLabel:eqL+'% CI',xTitle:xT});
  $('i_table').innerHTML = '<tr><th>Estimate</th><th>Reported '+Math.round(100*lvl)+'% CI</th><th>P vs 0</th><th>Bounds</th><th>Equivalence CI ('+eqL+'%)</th><th>TOST P</th><th>Tightest bound</th></tr>'+
   '<tr><td>'+f(r.estimate)+'</td><td>'+f(lo2)+' to '+f(hi2)+'</td><td>'+pf(r.pNhst)+'</td><td>±'+f(s)+'</td><td>'+f(r.ciEq[0])+' to '+f(r.ciEq[1])+'</td><td>'+pf(r.pTost)+'</td><td>±'+f(r.tightest)+'</td></tr>';
  var u = $('i_units').value ? ' '+$('i_units').value : '';
@@ -562,7 +566,7 @@ function noninf(){
  $('n_verdict').innerHTML = (r.nonInferior?'Non-inferior':'Non-inferiority not shown')+'<span class="pill" style="color:'+col+'">P '+pTxt(r.p)+'</span>';
  $('n_meaning').textContent = r.nonInferior ? 'The new option is not worse than the standard by more than the margin.' : 'The data cannot rule out that the new option is worse than the standard by more than the margin.';
  var oneL = +(100*r.oneSidedLevel).toFixed(1);
- plot($('n_plot'), {lo:lo,hi:hi,est:r.estimate,b0:hb?-m:NaN,b1:hb?NaN:m,e0:hb?r.limit:NaN,e1:hb?NaN:r.limit,label:'non-inferiority',bandLabel:'acceptable region (margin '+f(m,2)+')',eqLabel:'none'});
+ plot($('n_plot'), {lo:lo,hi:hi,est:r.estimate,b0:hb?-m:NaN,b1:hb?NaN:m,e0:hb?r.limit:NaN,e1:hb?NaN:r.limit,label:'non-inferiority',bandLabel:'acceptable region (margin '+f(m,2)+')',eqLabel:'none',xTitle:'Difference, new − standard'+($('n_units').value?' ('+$('n_units').value+')':'')});
  $('n_table').innerHTML = '<tr><th>Estimate</th><th>Reported CI</th><th>Margin</th><th>One-sided '+oneL+'% limit</th><th>NI P</th><th>Tightest margin</th></tr><tr><td>'+f(r.estimate)+'</td><td>'+f(lo)+' to '+f(hi)+'</td><td>'+(hb?'−':'+')+f(m)+'</td><td>'+f(r.limit)+'</td><td>'+pf(r.p)+'</td><td>'+f(r.tightest)+'</td></tr>';
  var u = $('n_units').value ? ' '+$('n_units').value : '';
  if(READMODE()){
