@@ -1,4 +1,4 @@
-# Table 2 of Papadakis (Curr Phys Med Rehabil Rep, under review), vs22.
+# Table 2 of Papadakis (Curr Phys Med Rehabil Rep, under review).
 # One rule for every row: reported estimate and 95% limits, normal approximation, and one error rate:
 # every judgment uses the 95% CI (alpha = 0.025 per one-sided test, the package default).
 z95 <- stats::qnorm(0.975)
