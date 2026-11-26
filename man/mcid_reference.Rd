@@ -13,8 +13,9 @@ A data frame with one row per threshold and columns:
 \item{threshold_type}{MCID, MIC, trial SESOI, SWC or distribution-based.}
 \item{value, unit}{Threshold as reported (text; may be a range).}
 \item{value_num}{First number of \code{value}, for calculations.}
-\item{method, level}{Derivation method and whether the threshold applies
-to individuals or to between-group differences.}
+\item{method, level}{Derivation method and whether the threshold describes
+change within a patient ("Within-patient"), a difference between groups
+("Between-group") or either ("Either ...").}
 \item{source, doi, notes}{Citation, DOI and caveats.}
 }
 }
