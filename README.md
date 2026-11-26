@@ -68,7 +68,7 @@ small_telescope(25, type = "paired", sd = 3.26)   # bound for replicating a 25-a
 
 ## The five patterns
 
-Since version 0.1.8 every test defaults to alpha = 0.025 per one-sided test, so zero, clinical importance, equivalence and non-inferiority are all judged with the 95% interval a paper prints (the CONSORT convention for equivalence and non-inferiority trials). With one error rate, a result that is equivalent within a bound is always non-inferior at a margin of the same size, and the five patterns cannot overlap. Set `alpha = 0.05` to reproduce bioequivalence or TOSTER defaults (90% interval). `classify_ci()` places an interval in one of five patterns:
+Every test defaults to alpha = 0.025 per one-sided test, so zero, clinical importance, equivalence and non-inferiority are all judged with the 95% interval a paper prints (the CONSORT convention for equivalence and non-inferiority trials). With one error rate, a result that is equivalent within a bound is always non-inferior at a margin of the same size, and the five patterns cannot overlap. Set `alpha = 0.05` to reproduce bioequivalence or TOSTER defaults (90% interval). `classify_ci()` places an interval in one of five patterns:
 
 1. **Clinically important**: the whole interval lies beyond a bound.
 2. **Real, importance unclear**: excludes zero but crosses a bound.
@@ -94,15 +94,11 @@ citation("clinthresh")
 
 Papadakis Z. Statistically significant, clinically meaningful, or neither? clinical thresholds and equivalence testing in sports medicine rehabilitation. *Curr Phys Med Rehabil Rep*. 2027.
 
-Papadakis Z. clinthresh: clinical thresholds, equivalence tests and replicability tools for sports medicine research. R package version 0.2.0. 2026. https://doi.org/10.5281/zenodo.24022248
+Papadakis Z. clinthresh: clinical thresholds, equivalence tests and replicability tools for sports medicine research. R package version 0.2.2. 2026. https://doi.org/10.5281/zenodo.24022248
 
 ## Worked examples
 
 The data, analysis plan, code and output for the worked examples in the review are on the Open Science Framework: https://doi.org/10.17605/OSF.IO/ZQM24
-
-## How this software was made
-
-The author developed the R package and the web app with the help of an AI assistant (Claude, Anthropic). The author specified the methods, tested the functions against the worked examples in the review and checked the equivalence tests against the TOSTER package (version 0.8.6), which gives the same P values to four significant figures, and is responsible for the software. Please report errors through the issue tracker.
 
 ## License
 
