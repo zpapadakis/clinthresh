@@ -1,3 +1,13 @@
+# clinthresh 0.2.1
+
+Companion software for the revised review "Statistically Significant, Clinically Meaningful, or Neither? Clinical Thresholds and Equivalence Testing in Sports Medicine Rehabilitation" (Current Physical Medicine and Rehabilitation Reports, first revision).
+
+* Web app: axis titles give the effect measure and units, and event counts also report the risk ratio (log method) beside the risk difference (added after peer review).
+* Threshold table (`mcid_reference`, web app, Shiny app): the `level` column now reads "Within-patient", "Between-group" or "Either". The 0.5 SD distribution-based value (Norman et al. 2003) is labeled "Either (distribution-based fallback)" rather than "Between-group", because it was derived mostly from within-patient minimal important differences.
+* Shiny app (`run_app()`): threshold labels show their level, a caution appears when a within-patient threshold is used for a between-group difference, and the citation uses the revised review title.
+* Web app Example 3: the 2-point chronic-pain value is described as a commonly cited value rather than the nearest published value.
+* README: describes accurately which tools the Shiny app offers.
+
 # clinthresh 0.2.0 (submission release)
 
 Companion software for the review "Statistically Significant, Clinically Meaningful, or Neither? Clinical Thresholds, Equivalence Testing, and Replicability in Sports Medicine Rehabilitation" (submitted to Current Physical Medicine and Rehabilitation Reports).

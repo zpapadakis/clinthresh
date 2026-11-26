@@ -10,13 +10,15 @@ if (requireNamespace("clinthresh", quietly = TRUE)) {
 }
 
 ref <- clinthresh::mcid_reference
-ref$label <- paste0(ref$instrument, " - ", ref$subscale, ": ", ref$value, " ", ref$unit,
+ref$label <- paste0(ifelse(grepl("^Within", ref$level), "[within-patient] ",
+                            ifelse(grepl("^Either", ref$level), "[either] ", "[between-group] ")),
+                     ref$instrument, " - ", ref$subscale, ": ", ref$value, " ", ref$unit,
                     " (", sub(" [0-9]{4} .*", "", ref$source), ", ", ref$population, ")")
 
 cite_text <- paste(
   "If this tool helped your work, please cite: Papadakis Z. Statistically significant, clinically",
-  "meaningful, or neither? Clinical thresholds, equivalence testing, and replicability in",
-  "sports medicine rehabilitation. Curr Phys Med Rehabil Rep. Manuscript under review.",
+  "meaningful, or neither? Clinical thresholds and equivalence testing in sports medicine",
+  "rehabilitation. Curr Phys Med Rehabil Rep. Manuscript under review.",
   "Software: Papadakis Z. clinthresh: clinical thresholds and equivalence tests (R package).")
 
 fp <- function(p) if (p < 0.001) "< 0.001" else if (p < 0.01) sprintf("%.3f", p) else sprintf("%.2f", p)
@@ -152,7 +154,9 @@ server <- function(input, output, session) {
   output$refnote <- renderUI({
     if (input$src != "table") return(NULL)
     i <- match(input$refrow, ref$label)
-    tags$p(tags$em(sprintf("Threshold source: %s. %s. %s", ref$source[i], ref$method[i], ref$notes[i])))
+    caution <- if (grepl("^Within", ref$level[i]))
+      " Caution: this is a within-patient threshold. Applied to a between-group difference it can mislead in either direction; prefer a between-group smallest worthwhile effect where one exists, or report the proportion of patients reaching this threshold in each arm." else ""
+    tags$p(tags$em(sprintf("Threshold source: %s. %s. Level: %s. %s%s", ref$source[i], ref$method[i], ref$level[i], ref$notes[i], caution)))
   })
   n_req <- reactive({
     req(input$p_sesoi > 0, input$p_sd > 0)
